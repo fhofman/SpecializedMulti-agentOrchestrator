@@ -3,18 +3,22 @@ name = "vuln-orchestrator"
 version = "0.1.0"
 requires-python = ">=3.12"
 dependencies = [
+    "arize-phoenix-otel>=0.17.3",
     "httpx>=0.28.1",
     "langchain>=1.4.9",
     "langchain-openai>=1.7.4",
     "langchain-tavily>=0.2.18",
     "langgraph>=1.2.20",
+    "openinference-instrumentation-langchain>=0.1.82",
     "packaging>=26.3",
     "python-dotenv>=1.2.4",
 ]
 
 [dependency-groups]
 dev = [
+    "arize-phoenix>=21.0.0",
     "ipykernel>=7.4.0",
+    "ipywidgets>=8.1.9",
     "nbconvert>=7.17.2",
     "pandas>=3.1.1",
     "pytest>=9.2.0",

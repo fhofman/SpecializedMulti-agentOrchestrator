@@ -120,6 +120,7 @@ Usuario → Supervisor → Investigador → Supervisor → Analista → Supervis
 ├── state.py                  # Esquema del estado compartido (AgentState)
 ├── graph.py                  # StateGraph: nodos, aristas condicionales, diagrama
 ├── main.py                   # CLI que muestra la delegación paso a paso
+├── tracing.py                # Observabilidad con Arize Phoenix (OpenInference)
 ├── demo.ipynb                # Notebook ejecutado con la demo del flujo
 ├── agents/
 │   ├── research_agent.py     # Investigador (create_react_agent + OSV + Tavily)
@@ -156,6 +157,42 @@ uv run python -m pytest tests -q   # 12 tests, sin LLM ni red
   3. la tabla de trazabilidad;
   4. el bucle de refinamiento;
   5. los frenos contra el supervisor infinito.
+
+---
+
+## Observabilidad con Arize Phoenix
+
+[tracing.py](tracing.py) instrumenta LangChain y LangGraph con **OpenInference**, sobre OpenTelemetry. Cada ejecución del grafo queda como **una traza** en Phoenix, con el árbol completo de la delegación:
+
+```
+vuln-orchestrator (LangGraph)
+├── supervisor   ─ ChatOpenAI (decisión estructurada: SupervisorDecision)
+├── researcher   ─ agente ReAct ─ ChatOpenAI ─ query_osv ×4 ─ web_search
+├── supervisor
+├── analyst      ─ agente ReAct ─ ChatOpenAI ─ rank_dependencies
+├── supervisor
+└── synthesizer  ─ ChatOpenAI
+```
+
+Para cada llamada al LLM se ven el prompt, la respuesta, los tokens y la latencia. Para cada herramienta, sus argumentos y su resultado. Cada corrida lleva un `session_id`, la consulta como metadata y tags (`using_attributes` en `main.py`).
+
+En una corrida de prueba se registraron:
+
+- 59 spans: 42 CHAIN, 8 LLM, 5 TOOL y 4 AGENT;
+- unos 20.000 tokens.
+
+```bash
+uv run phoenix serve          # Phoenix local en http://localhost:6006
+uv run python main.py         # en otra terminal: la traza aparece en el proyecto "vuln-orchestrator"
+```
+
+- **Es opcional.** Si Phoenix no está corriendo, el sistema avisa y sigue sin tracing. Para apagarlo del todo: `PHOENIX_TRACING=false`.
+- **Phoenix Cloud:** definí `PHOENIX_COLLECTOR_ENDPOINT` y `PHOENIX_API_KEY` en `.env`.
+- **Qué se puede analizar en Phoenix:**
+  - por qué el supervisor eligió cada destino (la salida estructurada queda visible);
+  - cuántos tokens consume cada agente;
+  - cuánto tarda cada consulta a OSV;
+  - cuántas iteraciones hizo cada agente ReAct.
 
 ---
 
