@@ -1,0 +1,51 @@
+sequenceDiagram
+    autonumber
+    actor U as Usuario
+    participant M as main.py / Grafo
+    participant S as Supervisor
+    participant R as Investigador
+    participant OSV as OSV.dev
+    participant T as Tavily
+    participant A as Analista
+    participant C as Calculo CVSS (Python)
+    participant Y as Sintesis
+
+    U->>M: Dependencias (Maven, npm, PyPI, Packagist)
+    M->>S: initial_state(query)
+
+    Note over S: Paso 1 - no hay datos
+    S->>S: LLM + rúbrica -> next_agent = researcher
+    S->>R: current_instruction (acotada)
+
+    loop Por cada paquete
+        R->>OSV: query_osv(paquete, versión, ecosistema)
+        OSV-->>R: CVEs, vector CVSS, versión que corrige
+    end
+    R->>T: web_search (vulns más graves)
+    T-->>R: explotación activa / advisories
+    R-->>S: research_findings + vulnerability_data + contribution
+
+    Note over S: Paso 2 - hay datos, falta análisis
+    S->>S: hechos verificables + LLM -> analyst
+    S->>A: current_instruction + resumen del investigador
+    A->>C: rank_dependencies() (InjectedState: vulnerability_data)
+    C-->>A: ranking, versión mínima segura, data_warnings
+    A-->>S: analysis_report + contribution
+
+    Note over S: Paso 3 - validación
+    S->>S: automatic_checks (A1, A2, A3) + LLM (R1, R2, A4)
+
+    alt Falla un criterio y quedan ejecuciones
+        S->>A: Corregí tu reporte: lista exacta de fallos
+        A->>C: rank_dependencies()
+        C-->>A: datos calculados
+        A-->>S: analysis_report v2
+        S->>S: vuelve a validar
+    else Límite alcanzado (G3: 3 ejecuciones / G4: 8 pasos)
+        S->>S: FINISH con pending_issues
+    end
+
+    Note over S: Rúbrica OK -> FINISH
+    S->>Y: reporte validado + hallazgos + pending_issues
+    Y-->>M: final_answer
+    M-->>U: Reporte priorizado: qué actualizar primero y a qué versión

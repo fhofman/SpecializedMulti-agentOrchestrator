@@ -1,0 +1,24 @@
+[project]
+name = "vuln-orchestrator"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "httpx>=0.28.1",
+    "langchain>=1.4.9",
+    "langchain-openai>=1.7.4",
+    "langchain-tavily>=0.2.18",
+    "langgraph>=1.2.20",
+    "packaging>=26.3",
+    "python-dotenv>=1.2.4",
+]
+
+[dependency-groups]
+dev = [
+    "ipykernel>=7.4.0",
+    "nbconvert>=7.17.2",
+    "pandas>=3.1.1",
+    "pytest>=9.2.0",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
