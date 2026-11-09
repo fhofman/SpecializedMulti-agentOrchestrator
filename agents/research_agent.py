@@ -12,7 +12,7 @@ import json
 import os
 
 from langchain_core.messages import AIMessage, HumanMessage, ToolMessage
-from langgraph.prebuilt import create_react_agent
+from langgraph.prebuilt import ToolNode, create_react_agent
 
 from agents.llm import get_llm
 from state import AgentState, make_contribution
@@ -27,14 +27,18 @@ Tu trabajo es RECOLECTAR datos, no priorizar ni recomendar.
 
 Herramientas:
 - query_osv: fuente principal. Llamala UNA vez por cada paquete+versión.
-  Nombres: Maven = 'groupId:artifactId', Packagist = 'vendor/paquete'.
+  Usá el nombre EXACTO del registro oficial, nunca 'owner/repo' de GitHub:
+  PyPI = 'requests', npm = 'express' (o '@scope/pkg'), Maven = 'groupId:artifactId',
+  Packagist = 'vendor/paquete'. Si la tool devuelve "Nombre inválido", corregilo y reintentá.
 - web_search: solo para contexto de las vulns más graves (CRITICAL/HIGH):
   explotación activa, advisories. Máximo 2 búsquedas.
 
 Reglas:
 - Nunca inventes CVEs, scores ni versiones: solo lo que devuelven las tools.
 - Si un paquete no tiene vulns o la tool falla, decilo explícitamente.
-- Si el nombre del paquete es ambiguo, usá el nombre canónico del ecosistema.
+- Si el pedido NO son dependencias de Maven/npm/PyPI/Packagist (ej. firmware, sistemas
+  operativos, hardware), no consultes nada: respondé "FUERA DE ALCANCE: <motivo>".
+- Si una tool falla, reportalo en "Limitaciones"; no inventes datos para compensar.
 
 Formato de tu respuesta final (en español, conciso):
 ## Hallazgos por paquete
@@ -50,7 +54,11 @@ def build_research_agent():
     tools = [query_osv]
     if os.getenv("TAVILY_API_KEY"):
         tools.append(get_web_search_tool())
-    return create_react_agent(get_llm(), tools=tools, prompt=SYSTEM_PROMPT, name=AGENT_NAME)
+    # handle_tool_errors=True: una excepción en una tool vuelve al LLM como mensaje
+    # de error en vez de tumbar el grafo (hallazgo del escenario F1 en Phoenix).
+    return create_react_agent(
+        get_llm(), tools=ToolNode(tools, handle_tool_errors=True), prompt=SYSTEM_PROMPT, name=AGENT_NAME
+    )
 
 
 # Se construye una sola vez al importar el módulo (no en cada llamada).

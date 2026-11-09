@@ -29,10 +29,15 @@ _llm = get_llm()
 
 def synthesizer_node(state: AgentState) -> dict:
     if not state.get("analysis_report"):
+        # Sin análisis NUNCA se afirma que el proyecto es seguro (hallazgo F2/Q3).
         answer = (
-            "No se pudo completar el análisis.\n\n"
-            f"Hallazgos parciales:\n{state.get('research_findings') or '(ninguno)'}\n\n"
-            f"Motivo: {state.get('supervisor_feedback', '')}"
+            "# No se pudo completar el análisis de vulnerabilidades\n\n"
+            "**Esto no significa que las dependencias sean seguras**: no hubo datos suficientes "
+            "para evaluarlas (fuera de alcance, nombres no encontrados o herramientas no disponibles).\n\n"
+            "Este sistema analiza dependencias de Maven (Java), npm (JavaScript/Node), "
+            "PyPI (Python) y Packagist (PHP).\n\n"
+            f"## Lo que informó el investigador\n{state.get('research_findings') or '(nada)'}\n\n"
+            f"## Decisión del supervisor\n{state.get('supervisor_feedback', '')}"
         )
     else:
         context = f"""CONSULTA: {state['user_query']}

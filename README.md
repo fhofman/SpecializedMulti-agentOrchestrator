@@ -194,6 +194,22 @@ uv run python main.py         # en otra terminal: la traza aparece en el proyect
   - cuánto tarda cada consulta a OSV;
   - cuántas iteraciones hizo cada agente ReAct.
 
+### Análisis de tráfico y fallos
+
+[docs/observability/analisis_observabilidad_phoenix.pdf](docs/observability/analisis_observabilidad_phoenix.pdf) documenta 11 trazas:
+
+- 5 consultas complejas;
+- 2 fallos provocados: herramientas caídas y un pedido fuera de alcance;
+- 4 re-ejecuciones después de las correcciones.
+
+Incluye el span de mayor latencia, el costo en tokens del razonamiento más largo y cómo se registran los errores. También documenta tres bugs encontrados navegando las trazas, que ya están corregidos.
+
+```bash
+uv run python scripts/generate_traffic.py     # tráfico + fault injection (Phoenix corriendo)
+uv run python scripts/analyze_traces.py       # métricas y gráficos desde la API de Phoenix
+uv run python scripts/build_report.py         # regenera el PDF
+```
+
 ---
 
 ## Estado compartido ([state.py](state.py))

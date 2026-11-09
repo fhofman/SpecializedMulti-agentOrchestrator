@@ -12,7 +12,7 @@ from typing import Annotated
 
 from langchain_core.messages import AIMessage, HumanMessage
 from langchain_core.tools import tool
-from langgraph.prebuilt import InjectedState, create_react_agent
+from langgraph.prebuilt import InjectedState, ToolNode, create_react_agent
 from langgraph.prebuilt.chat_agent_executor import AgentState as ReactAgentState
 
 from agents.llm import get_llm
@@ -73,7 +73,7 @@ Formato de respuesta final (en español):
 
 _analyst_agent = create_react_agent(
     get_llm(),
-    tools=[rank_dependencies, calculate_cvss_score],
+    tools=ToolNode([rank_dependencies, calculate_cvss_score], handle_tool_errors=True),
     prompt=SYSTEM_PROMPT,
     state_schema=AnalystInternalState,
     name=AGENT_NAME,

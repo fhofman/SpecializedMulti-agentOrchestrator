@@ -110,3 +110,38 @@ def test_a2_detects_missing_version():
     st = initial_state("q") | {"vulnerability_data": [PKG_LOG4J],
                                "analysis_report": "| 1 | log4j-core | 10.0 |\n## Datos faltantes\n- log4j-core: 1 scores aproximados"}
     assert any(f.startswith("A2") and "2.25.4" in f for f in automatic_checks(st))
+
+
+def test_g7_no_analyst_when_no_vulnerabilities():
+    empty = {"package": "requests", "version": "2.99.0", "ecosystem": "PyPI", "total_found": 0, "vulnerabilities": []}
+    st = initial_state("q") | {"vulnerability_data": [empty], "research_findings": "0 vulns",
+                               "revisions": {"researcher": 1, "analyst": 0}}
+    nxt, _, notes = apply_guardrails(decision("analyst"), st)
+    assert nxt == "FINISH" and any("G7" in n for n in notes)
+
+
+def test_g7_out_of_scope_finishes_without_looping():
+    st = initial_state("q") | {"research_findings": "FUERA DE ALCANCE: firmware de router",
+                               "revisions": {"researcher": 1, "analyst": 0}}
+    nxt, _, _ = apply_guardrails(decision("analyst"), st)
+    assert nxt == "FINISH"
+
+
+def test_package_name_validation():
+    from tools.vuln_search import validate_package_name
+    assert validate_package_name("psf/requests", "PyPI")            # repo de GitHub en PyPI
+    assert validate_package_name("expressjs/express", "npm")
+    assert validate_package_name("log4j-core", "Maven")
+    assert validate_package_name("guzzle", "Packagist")
+    assert validate_package_name("requests", "PyPI") is None
+    assert validate_package_name("@angular/core", "npm") is None
+    assert validate_package_name("org.apache.logging.log4j:log4j-core", "Maven") is None
+
+
+def test_g7_out_of_scope_does_not_retry_researcher():
+    """Aunque el LLM insista en volver al investigador (hallazgo F2-fix en Phoenix)."""
+    st = initial_state("q") | {"research_findings": "FUERA DE ALCANCE: firmware",
+                               "revisions": {"researcher": 1, "analyst": 0}}
+    d = SupervisorDecision(research_issues=["R1: falta consultar el firmware"], analysis_issues=[],
+                           next_agent="researcher", instruction="consultá el firmware", reasoning="x")
+    assert apply_guardrails(d, st)[0] == "FINISH"

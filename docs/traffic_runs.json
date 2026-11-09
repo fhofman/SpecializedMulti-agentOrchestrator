@@ -1,0 +1,218 @@
+[
+  {
+    "id": "Q1-java-spring",
+    "kind": "consulta",
+    "query": "Auditá este backend Java: org.springframework:spring-web 5.3.0, com.fasterxml.jackson.core:jackson-databind 2.9.8 y org.apache.struts:struts2-core 2.5.10 (Maven). ¿Cuál tiene riesgo de ejecución remota de código y en qué orden actualizo?",
+    "status": "ok",
+    "supervisor_steps": 3,
+    "runs": {
+      "researcher": 1,
+      "analyst": 1
+    },
+    "pending_issues": [],
+    "route": [
+      "[paso 1] -> researcher",
+      "[paso 2] -> analyst",
+      "[paso 3] -> FINISH"
+    ],
+    "final_answer_head": "# Reporte de vulnerabilidades\n\n**Resumen ejecutivo**: Es urgente actualizar el paquete **org.apache.struts:struts2-core** a la versión **6.4.0** debido a una vulnerabilidad crítica que permite ejecución remota de código. Además, se deben actualizar **com.fasterxml.jackson.core:jackson-databind** y **org.springframework:spring-web** para mitigar otras vulnerabilidades críticas.\n\n## Prioridades\n| Prioridad | Paquete                              | Versión actual | CVSS máx | Críticas/Altas | Actualizar a |\n|-----------|--------------------------------------|----------------|----------|-----------",
+    "seconds": 49.5
+  },
+  {
+    "id": "Q2-node-api",
+    "kind": "consulta",
+    "query": "Mi API en Node usa express 4.17.1, jsonwebtoken 8.5.1, axios 0.21.0 y minimist 1.2.0 (npm). ¿Qué vulnerabilidades tienen, cuáles se explotan activamente y qué actualizo primero?",
+    "status": "ok",
+    "supervisor_steps": 4,
+    "runs": {
+      "researcher": 1,
+      "analyst": 2
+    },
+    "pending_issues": [],
+    "route": [
+      "[paso 1] -> researcher",
+      "[paso 2] -> analyst",
+      "[paso 3] -> analyst",
+      "[paso 4] -> FINISH"
+    ],
+    "final_answer_head": "# Reporte de vulnerabilidades\n\n**Resumen ejecutivo**: Es urgente actualizar el paquete **minimist** a la versión **1.2.6** debido a una vulnerabilidad crítica que se está explotando activamente, permitiendo la ejecución de código arbitrario. Además, se recomienda actualizar **jsonwebtoken** y **axios** para mitigar vulnerabilidades altas que podrían comprometer la seguridad de la aplicación.\n\n## Prioridades\n| Prioridad | Paquete      | Versión actual | CVSS máx | Críticas/Altas | Actualizar a |\n|-----------|--------------|----------------|----------|----------------|---------------|\n| 1       ",
+    "seconds": 53.3
+  },
+  {
+    "id": "Q3-python-web",
+    "kind": "consulta",
+    "query": "Proyecto Python con requests 2.25.0, pyyaml 5.3, flask 1.0, jinja2 2.10 y pillow 8.0.0 (PyPI). Priorizá la remediación y decime a qué versión subir cada uno.",
+    "status": "ok",
+    "supervisor_steps": 5,
+    "runs": {
+      "researcher": 1,
+      "analyst": 3
+    },
+    "pending_issues": [
+      "A4: el plan no está ordenado."
+    ],
+    "route": [
+      "[paso 1] -> researcher",
+      "[paso 2] -> analyst",
+      "[paso 3] -> analyst",
+      "[paso 4] -> analyst",
+      "[paso 5] -> FINISH"
+    ],
+    "final_answer_head": "# Reporte de vulnerabilidades\n**Resumen ejecutivo**: Actualmente, no se han encontrado vulnerabilidades en los paquetes utilizados en el proyecto. Por lo tanto, no se requiere una actualización urgente de las versiones de los mismos.\n\n## Prioridades\n| Prioridad | Paquete  | Versión actual | CVSS máx | Críticas/Altas | Actualizar a |\n|-----------|----------|----------------|----------|----------------|---------------|\n|           | requests | 2.25.0         |          | 0              |               |\n|           | pyyaml   | 5.3            |          | 0              |               |\n|      ",
+    "seconds": 38.0
+  },
+  {
+    "id": "Q4-php-laravel",
+    "kind": "consulta",
+    "query": "Aplicación PHP con laravel/framework 8.0.0, symfony/http-kernel 4.4.0, phpmailer/phpmailer 6.0.0 y twig/twig 2.0.0 (Packagist). ¿Qué riesgo tiene y qué arreglo primero?",
+    "status": "ok",
+    "supervisor_steps": 3,
+    "runs": {
+      "researcher": 1,
+      "analyst": 1
+    },
+    "pending_issues": [],
+    "route": [
+      "[paso 1] -> researcher",
+      "[paso 2] -> analyst",
+      "[paso 3] -> FINISH"
+    ],
+    "final_answer_head": "# Reporte de vulnerabilidades\n**Resumen ejecutivo**: La aplicación presenta vulnerabilidades críticas en los paquetes twig/twig y laravel/framework, que pueden comprometer gravemente la seguridad y permitir accesos no autorizados. Es urgente actualizar estos paquetes para mitigar los riesgos asociados.\n\n## Prioridades\n| Prioridad | Paquete                  | Versión actual | CVSS máx | Críticas/Altas | Actualizar a |\n|-----------|--------------------------|----------------|----------|----------------|---------------|\n| 1         | twig/twig                | 2.0.0         | 9.8      | 1/5      ",
+    "seconds": 43.1
+  },
+  {
+    "id": "Q5-polyglot",
+    "kind": "consulta",
+    "query": "Tengo microservicios en 4 lenguajes: log4j-core 2.14.1 (Maven), lodash 4.17.15 (npm), django 3.2.0 (PyPI) y guzzlehttp/guzzle 7.4.0 (Packagist). Armá un plan de remediación priorizado y contame si alguna vulnerabilidad se explota activamente.",
+    "status": "ok",
+    "supervisor_steps": 3,
+    "runs": {
+      "researcher": 1,
+      "analyst": 1
+    },
+    "pending_issues": [],
+    "route": [
+      "[paso 1] -> researcher",
+      "[paso 2] -> analyst",
+      "[paso 3] -> FINISH"
+    ],
+    "final_answer_head": "# Reporte de vulnerabilidades\n\n**Resumen ejecutivo**: Es urgente actualizar el paquete **log4j-core** a la versión **2.25.4** debido a la explotación activa de la vulnerabilidad CVE-2021-44228, que permite inyección de código remoto. Además, se debe priorizar la actualización de **Django** a la versión **5.2.16** por su alta probabilidad de explotación en los próximos 30 días.\n\n## Prioridades\n| Prioridad | Paquete                          | Versión actual | CVSS máx | Críticas/Altas | Actualizar a |\n|-----------|----------------------------------|----------------|----------|----------------|--",
+    "seconds": 46.7
+  },
+  {
+    "id": "F1-tools-down",
+    "kind": "fallo",
+    "query": "Revisá express 4.17.1 (npm) y requests 2.25.0 (PyPI). ¿Qué vulnerabilidades tienen?",
+    "status": "error",
+    "error": "ConnectionError: OSV.dev desconectado (fault injection)",
+    "seconds": 4.6
+  },
+  {
+    "id": "F2-out-of-scope",
+    "kind": "fallo",
+    "query": "Analizá las vulnerabilidades del firmware 3.15 de mi router TP-Link Archer C7 y de Windows 10 21H2. ¿Cuál parcheo primero?",
+    "status": "ok",
+    "supervisor_steps": 5,
+    "runs": {
+      "researcher": 1,
+      "analyst": 3
+    },
+    "pending_issues": [
+      "A4: el plan no está ordenado."
+    ],
+    "route": [
+      "[paso 1] -> researcher",
+      "[paso 2] -> analyst",
+      "[paso 3] -> analyst",
+      "[paso 4] -> analyst",
+      "[paso 5] -> FINISH"
+    ],
+    "final_answer_head": "# Reporte de vulnerabilidades\n\n**Resumen ejecutivo**: Actualmente, no se han identificado vulnerabilidades en el firmware 3.15 del router TP-Link Archer C7 ni en Windows 10 21H2. Sin embargo, es importante tener en cuenta las advertencias sobre un botnet que afecta a routers y una vulnerabilidad de escalada de privilegios en Windows 10.\n\n## Prioridades\n| Prioridad | Paquete | Versión actual | CVSS máx | Críticas/Altas | Actualizar a |\n|-----------|---------|----------------|-----------|----------------|---------------|\n\n## Plan de acción\n1. No es necesario aplicar parches en este momento, ya q",
+    "seconds": 40.0
+  },
+  {
+    "id": "Q3-python-web-fix",
+    "kind": "consulta",
+    "query": "Proyecto Python con requests 2.25.0, pyyaml 5.3, flask 1.0, jinja2 2.10 y pillow 8.0.0 (PyPI). Priorizá la remediación y decime a qué versión subir cada uno.",
+    "status": "ok",
+    "supervisor_steps": 3,
+    "runs": {
+      "researcher": 1,
+      "analyst": 1
+    },
+    "pending_issues": [],
+    "route": [
+      "[paso 1] -> researcher",
+      "[paso 2] -> analyst",
+      "[paso 3] -> FINISH"
+    ],
+    "final_answer_head": "# Reporte de vulnerabilidades\n\n**Resumen ejecutivo**: Es urgente actualizar los paquetes vulnerables en el proyecto Python, especialmente **pillow** y **pyyaml**, que presentan vulnerabilidades críticas que pueden permitir la ejecución de código arbitrario. La remediación de estas vulnerabilidades es esencial para garantizar la seguridad de la aplicación.\n\n## Prioridades\n| Prioridad | Paquete  | Versión actual | CVSS máx | Críticas/Altas | Actualizar a |\n|-----------|----------|----------------|----------|----------------|---------------|\n| 1         | pillow   | 8.0.0         | 9.8      | 2/7",
+    "seconds": 38.4
+  },
+  {
+    "id": "F1-tools-down-fix",
+    "kind": "fallo",
+    "query": "Revisá express 4.17.1 (npm) y requests 2.25.0 (PyPI). ¿Qué vulnerabilidades tienen?",
+    "status": "ok",
+    "supervisor_steps": 4,
+    "runs": {
+      "researcher": 3,
+      "analyst": 0
+    },
+    "pending_issues": [
+      "R1: falta consultar express",
+      "R1: falta consultar requests",
+      "R2: no hay explicaciones sobre la falta de datos de OSV"
+    ],
+    "route": [
+      "[paso 1] -> researcher",
+      "[paso 2] -> researcher",
+      "[paso 3] -> researcher",
+      "[paso 4] -> FINISH"
+    ],
+    "final_answer_head": "# No se pudo completar el análisis de vulnerabilidades\n\n**Esto no significa que las dependencias sean seguras**: no hubo datos suficientes para evaluarlas (fuera de alcance, nombres no encontrados o herramientas no disponibles).\n\nEste sistema analiza dependencias de Maven (Java), npm (JavaScript/Node), PyPI (Python) y Packagist (PHP).\n\n## Lo que informó el investigador\n## Hallazgos por paquete\n- express@4.17.1 (npm): No se encontraron vulnerabilidades.\n- requests@2.25.0 (PyPI): No se encontraron vulnerabilidades.\n\n## Contexto web\n- Sin búsquedas web.\n\n## Limitaciones\n- No se pudo conectar a OS",
+    "seconds": 24.9
+  },
+  {
+    "id": "F2-out-of-scope-fix",
+    "kind": "fallo",
+    "query": "Analizá las vulnerabilidades del firmware 3.15 de mi router TP-Link Archer C7 y de Windows 10 21H2. ¿Cuál parcheo primero?",
+    "status": "ok",
+    "supervisor_steps": 4,
+    "runs": {
+      "researcher": 3,
+      "analyst": 0
+    },
+    "pending_issues": [
+      "R1: falta consultar vulnerabilidades del firmware 3.15 de TP-Link Archer C7 y de Windows 10 21H2."
+    ],
+    "route": [
+      "[paso 1] -> researcher",
+      "[paso 2] -> researcher",
+      "[paso 3] -> researcher",
+      "[paso 4] -> FINISH"
+    ],
+    "final_answer_head": "# No se pudo completar el análisis de vulnerabilidades\n\n**Esto no significa que las dependencias sean seguras**: no hubo datos suficientes para evaluarlas (fuera de alcance, nombres no encontrados o herramientas no disponibles).\n\nEste sistema analiza dependencias de Maven (Java), npm (JavaScript/Node), PyPI (Python) y Packagist (PHP).\n\n## Lo que informó el investigador\nFUERA DE ALCANCE: Solo puedo consultar vulnerabilidades de dependencias de software (Java/Maven, JavaScript y Node/npm, Python/PyPI, PHP/Packagist).\n\n## Decisión del supervisor\nEl researcher debe buscar información sobre las vul",
+    "seconds": 12.7
+  },
+  {
+    "id": "F2-out-of-scope-fix2",
+    "kind": "fallo",
+    "query": "Analizá las vulnerabilidades del firmware 3.15 de mi router TP-Link Archer C7 y de Windows 10 21H2. ¿Cuál parcheo primero?",
+    "status": "ok",
+    "supervisor_steps": 2,
+    "runs": {
+      "researcher": 1,
+      "analyst": 0
+    },
+    "pending_issues": [
+      "R1: falta consultar vulnerabilidades del firmware 3.15 de TP-Link Archer C7 y de Windows 10 21H2."
+    ],
+    "route": [
+      "[paso 1] -> researcher",
+      "[paso 2] -> FINISH"
+    ],
+    "final_answer_head": "# No se pudo completar el análisis de vulnerabilidades\n\n**Esto no significa que las dependencias sean seguras**: no hubo datos suficientes para evaluarlas (fuera de alcance, nombres no encontrados o herramientas no disponibles).\n\nEste sistema analiza dependencias de Maven (Java), npm (JavaScript/Node), PyPI (Python) y Packagist (PHP).\n\n## Lo que informó el investigador\nFUERA DE ALCANCE: firmware y sistemas operativos no son ecosistemas de dependencias de software (Maven, npm, PyPI, Packagist).\n\n## Decisión del supervisor\nEl researcher debe buscar información sobre las vulnerabilidades solicita",
+    "seconds": 6.6
+  }
+]

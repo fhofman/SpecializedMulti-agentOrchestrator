@@ -1,0 +1,750 @@
+{
+  "summary": {
+    "project": "vuln-orchestrator-traffic",
+    "traces": 11,
+    "spans": 752,
+    "llm_calls": 99,
+    "tool_calls": 59,
+    "total_tokens": 201161,
+    "total_cost_usd": 0.0332,
+    "llm_latency": {
+      "mean": 3.41,
+      "p50": 2.31,
+      "max": 16.46
+    },
+    "retrieval_latency": {
+      "mean": 1.29,
+      "p50": 1.06,
+      "max": 3.63
+    },
+    "latency_share": {
+      "llm": 0.945,
+      "retrieval": 0.054
+    },
+    "prices_usd_per_1m": {
+      "input": 0.15,
+      "cached_input": 0.075,
+      "output": 0.6
+    },
+    "model": "gpt-4o-mini-2024-07-18"
+  },
+  "traces": [
+    {
+      "scenario": "Q1-java-spring",
+      "status": "OK",
+      "latency_s": 49.5,
+      "spans": 57,
+      "llm_calls": 8,
+      "tool_calls": 4,
+      "tool_errors": 0,
+      "llm_time_s": 47.8,
+      "retrieval_time_s": 1.7,
+      "retrieval_time_sum_s": 4.0,
+      "other_tool_time_s": 0.0,
+      "prompt_tokens": 17344,
+      "completion_tokens": 1691,
+      "cached_tokens": 1664,
+      "total_tokens": 19035,
+      "cost_usd": 0.00349,
+      "tokens_by_node": {
+        "supervisor": 4480,
+        "researcher": 9192,
+        "analyst": 3763,
+        "synthesizer": 1600
+      }
+    },
+    {
+      "scenario": "Q2-node-api",
+      "status": "OK",
+      "latency_s": 53.3,
+      "spans": 91,
+      "llm_calls": 12,
+      "tool_calls": 8,
+      "tool_errors": 0,
+      "llm_time_s": 48.4,
+      "retrieval_time_s": 4.8,
+      "retrieval_time_sum_s": 8.8,
+      "other_tool_time_s": 0.0,
+      "prompt_tokens": 29435,
+      "completion_tokens": 2577,
+      "cached_tokens": 8960,
+      "total_tokens": 32012,
+      "cost_usd": 0.00529,
+      "tokens_by_node": {
+        "supervisor": 6665,
+        "researcher": 14530,
+        "analyst": 9035,
+        "synthesizer": 1782
+      }
+    },
+    {
+      "scenario": "Q3-python-web",
+      "status": "OK",
+      "latency_s": 38.0,
+      "spans": 105,
+      "llm_calls": 14,
+      "tool_calls": 8,
+      "tool_errors": 0,
+      "llm_time_s": 37.2,
+      "retrieval_time_s": 0.7,
+      "retrieval_time_sum_s": 3.5,
+      "other_tool_time_s": 0.0,
+      "prompt_tokens": 15530,
+      "completion_tokens": 1324,
+      "cached_tokens": 1664,
+      "total_tokens": 16854,
+      "cost_usd": 0.003,
+      "tokens_by_node": {
+        "supervisor": 6458,
+        "researcher": 4246,
+        "analyst": 5368,
+        "synthesizer": 782
+      }
+    },
+    {
+      "scenario": "Q4-php-laravel",
+      "status": "OK",
+      "latency_s": 43.1,
+      "spans": 59,
+      "llm_calls": 8,
+      "tool_calls": 5,
+      "tool_errors": 0,
+      "llm_time_s": 41.8,
+      "retrieval_time_s": 1.3,
+      "retrieval_time_sum_s": 4.1,
+      "other_tool_time_s": 0.0,
+      "prompt_tokens": 16862,
+      "completion_tokens": 1908,
+      "cached_tokens": 1664,
+      "total_tokens": 18770,
+      "cost_usd": 0.00355,
+      "tokens_by_node": {
+        "supervisor": 4551,
+        "researcher": 8484,
+        "analyst": 4019,
+        "synthesizer": 1716
+      }
+    },
+    {
+      "scenario": "Q5-polyglot",
+      "status": "OK",
+      "latency_s": 46.7,
+      "spans": 69,
+      "llm_calls": 9,
+      "tool_calls": 7,
+      "tool_errors": 0,
+      "llm_time_s": 42.4,
+      "retrieval_time_s": 4.3,
+      "retrieval_time_sum_s": 9.5,
+      "other_tool_time_s": 0.0,
+      "prompt_tokens": 29154,
+      "completion_tokens": 2054,
+      "cached_tokens": 9472,
+      "total_tokens": 31208,
+      "cost_usd": 0.0049,
+      "tokens_by_node": {
+        "supervisor": 4706,
+        "researcher": 20377,
+        "analyst": 4253,
+        "synthesizer": 1872
+      }
+    },
+    {
+      "scenario": "F1-tools-down",
+      "status": "ERROR",
+      "latency_s": 4.6,
+      "spans": 19,
+      "llm_calls": 2,
+      "tool_calls": 2,
+      "tool_errors": 2,
+      "llm_time_s": 4.6,
+      "retrieval_time_s": 0.0,
+      "retrieval_time_sum_s": 0.0,
+      "other_tool_time_s": 0.0,
+      "prompt_tokens": 2637,
+      "completion_tokens": 178,
+      "cached_tokens": 0,
+      "total_tokens": 2815,
+      "cost_usd": 0.0005,
+      "tokens_by_node": {
+        "supervisor": 1026,
+        "researcher": 1789,
+        "analyst": 0,
+        "synthesizer": 0
+      }
+    },
+    {
+      "scenario": "F2-out-of-scope",
+      "status": "OK",
+      "latency_s": 40.0,
+      "spans": 109,
+      "llm_calls": 15,
+      "tool_calls": 7,
+      "tool_errors": 0,
+      "llm_time_s": 35.5,
+      "retrieval_time_s": 4.4,
+      "retrieval_time_sum_s": 6.9,
+      "other_tool_time_s": 0.0,
+      "prompt_tokens": 20745,
+      "completion_tokens": 1644,
+      "cached_tokens": 3456,
+      "total_tokens": 22389,
+      "cost_usd": 0.00384,
+      "tokens_by_node": {
+        "supervisor": 6595,
+        "researcher": 8641,
+        "analyst": 6142,
+        "synthesizer": 1011
+      }
+    },
+    {
+      "scenario": "Q3-python-web-fix",
+      "status": "OK",
+      "latency_s": 38.4,
+      "spans": 61,
+      "llm_calls": 8,
+      "tool_calls": 6,
+      "tool_errors": 0,
+      "llm_time_s": 36.4,
+      "retrieval_time_s": 2.0,
+      "retrieval_time_sum_s": 6.0,
+      "other_tool_time_s": 0.0,
+      "prompt_tokens": 18784,
+      "completion_tokens": 2133,
+      "cached_tokens": 1792,
+      "total_tokens": 20917,
+      "cost_usd": 0.00396,
+      "tokens_by_node": {
+        "supervisor": 4635,
+        "researcher": 9674,
+        "analyst": 4602,
+        "synthesizer": 2006
+      }
+    },
+    {
+      "scenario": "F1-tools-down-fix",
+      "status": "OK",
+      "latency_s": 24.9,
+      "spans": 110,
+      "llm_calls": 13,
+      "tool_calls": 12,
+      "tool_errors": 12,
+      "llm_time_s": 24.8,
+      "retrieval_time_s": 0.0,
+      "retrieval_time_sum_s": 0.0,
+      "other_tool_time_s": 0.0,
+      "prompt_tokens": 22128,
+      "completion_tokens": 1112,
+      "cached_tokens": 16256,
+      "total_tokens": 23240,
+      "cost_usd": 0.00277,
+      "tokens_by_node": {
+        "supervisor": 4338,
+        "researcher": 18902,
+        "analyst": 0,
+        "synthesizer": 0
+      }
+    },
+    {
+      "scenario": "F2-out-of-scope-fix",
+      "status": "OK",
+      "latency_s": 12.7,
+      "spans": 50,
+      "llm_calls": 7,
+      "tool_calls": 0,
+      "tool_errors": 0,
+      "llm_time_s": 12.6,
+      "retrieval_time_s": 0.0,
+      "retrieval_time_sum_s": 0.0,
+      "other_tool_time_s": 0.0,
+      "prompt_tokens": 9399,
+      "completion_tokens": 549,
+      "cached_tokens": 5120,
+      "total_tokens": 9948,
+      "cost_usd": 0.00136,
+      "tokens_by_node": {
+        "supervisor": 4229,
+        "researcher": 5719,
+        "analyst": 0,
+        "synthesizer": 0
+      }
+    },
+    {
+      "scenario": "F2-out-of-scope-fix2",
+      "status": "OK",
+      "latency_s": 6.6,
+      "spans": 22,
+      "llm_calls": 3,
+      "tool_calls": 0,
+      "tool_errors": 0,
+      "llm_time_s": 6.6,
+      "retrieval_time_s": 0.0,
+      "retrieval_time_sum_s": 0.0,
+      "other_tool_time_s": 0.0,
+      "prompt_tokens": 3709,
+      "completion_tokens": 264,
+      "cached_tokens": 1792,
+      "total_tokens": 3973,
+      "cost_usd": 0.00058,
+      "tokens_by_node": {
+        "supervisor": 2108,
+        "researcher": 1865,
+        "analyst": 0,
+        "synthesizer": 0
+      }
+    }
+  ],
+  "top_spans": [
+    {
+      "scenario": "Q1-java-spring",
+      "node": "analyst",
+      "kind": "LLM",
+      "name": "ChatOpenAI",
+      "latency_s": 16.46,
+      "tokens": 2768,
+      "prompt_tokens": 2299,
+      "completion_tokens": 469
+    },
+    {
+      "scenario": "Q5-polyglot",
+      "node": "analyst",
+      "kind": "LLM",
+      "name": "ChatOpenAI",
+      "latency_s": 11.05,
+      "tokens": 3207,
+      "prompt_tokens": 2675,
+      "completion_tokens": 532
+    },
+    {
+      "scenario": "Q3-python-web-fix",
+      "node": "analyst",
+      "kind": "LLM",
+      "name": "ChatOpenAI",
+      "latency_s": 10.61,
+      "tokens": 3665,
+      "prompt_tokens": 2968,
+      "completion_tokens": 697
+    },
+    {
+      "scenario": "Q2-node-api",
+      "node": "researcher",
+      "kind": "LLM",
+      "name": "ChatOpenAI",
+      "latency_s": 9.8,
+      "tokens": 7579,
+      "prompt_tokens": 7163,
+      "completion_tokens": 416
+    },
+    {
+      "scenario": "Q2-node-api",
+      "node": "synthesizer",
+      "kind": "LLM",
+      "name": "ChatOpenAI",
+      "latency_s": 9.32,
+      "tokens": 1782,
+      "prompt_tokens": 1185,
+      "completion_tokens": 597
+    },
+    {
+      "scenario": "Q5-polyglot",
+      "node": "synthesizer",
+      "kind": "LLM",
+      "name": "ChatOpenAI",
+      "latency_s": 9.06,
+      "tokens": 1872,
+      "prompt_tokens": 1228,
+      "completion_tokens": 644
+    },
+    {
+      "scenario": "Q4-php-laravel",
+      "node": "synthesizer",
+      "kind": "LLM",
+      "name": "ChatOpenAI",
+      "latency_s": 9.04,
+      "tokens": 1716,
+      "prompt_tokens": 1155,
+      "completion_tokens": 561
+    },
+    {
+      "scenario": "Q1-java-spring",
+      "node": "synthesizer",
+      "kind": "LLM",
+      "name": "ChatOpenAI",
+      "latency_s": 9.0,
+      "tokens": 1600,
+      "prompt_tokens": 1108,
+      "completion_tokens": 492
+    },
+    {
+      "scenario": "Q2-node-api",
+      "node": "analyst",
+      "kind": "LLM",
+      "name": "ChatOpenAI",
+      "latency_s": 8.9,
+      "tokens": 3464,
+      "prompt_tokens": 2979,
+      "completion_tokens": 485
+    },
+    {
+      "scenario": "Q4-php-laravel",
+      "node": "analyst",
+      "kind": "LLM",
+      "name": "ChatOpenAI",
+      "latency_s": 8.62,
+      "tokens": 3090,
+      "prompt_tokens": 2509,
+      "completion_tokens": 581
+    }
+  ],
+  "reasoning": [
+    {
+      "scenario": "Q5-polyglot",
+      "agent": "researcher",
+      "latency_s": 20.0,
+      "llm_iterations": 3,
+      "tool_calls": 6,
+      "prompt_tokens": 19769,
+      "completion_tokens": 608,
+      "total_tokens": 20377,
+      "cost_usd": 0.00262,
+      "iterations": [
+        {
+          "prompt": 1809,
+          "completion": 147,
+          "latency_s": 6.48
+        },
+        {
+          "prompt": 7760,
+          "completion": 76,
+          "latency_s": 2.55
+        },
+        {
+          "prompt": 10200,
+          "completion": 385,
+          "latency_s": 6.62
+        }
+      ]
+    },
+    {
+      "scenario": "Q2-node-api",
+      "agent": "researcher",
+      "latency_s": 18.5,
+      "llm_iterations": 3,
+      "tool_calls": 6,
+      "prompt_tokens": 13909,
+      "completion_tokens": 621,
+      "total_tokens": 14530,
+      "cost_usd": 0.00197,
+      "iterations": [
+        {
+          "prompt": 1762,
+          "completion": 129,
+          "latency_s": 2.29
+        },
+        {
+          "prompt": 4984,
+          "completion": 76,
+          "latency_s": 1.58
+        },
+        {
+          "prompt": 7163,
+          "completion": 416,
+          "latency_s": 9.8
+        }
+      ]
+    },
+    {
+      "scenario": "Q3-python-web-fix",
+      "agent": "researcher",
+      "latency_s": 10.1,
+      "llm_iterations": 2,
+      "tool_calls": 5,
+      "prompt_tokens": 9212,
+      "completion_tokens": 462,
+      "total_tokens": 9674,
+      "cost_usd": 0.00152,
+      "iterations": [
+        {
+          "prompt": 1886,
+          "completion": 160,
+          "latency_s": 2.71
+        },
+        {
+          "prompt": 7326,
+          "completion": 302,
+          "latency_s": 5.32
+        }
+      ]
+    },
+    {
+      "scenario": "Q1-java-spring",
+      "agent": "researcher",
+      "latency_s": 14.0,
+      "llm_iterations": 2,
+      "tool_calls": 3,
+      "prompt_tokens": 8725,
+      "completion_tokens": 467,
+      "total_tokens": 9192,
+      "cost_usd": 0.00146,
+      "iterations": [
+        {
+          "prompt": 1786,
+          "completion": 123,
+          "latency_s": 6.87
+        },
+        {
+          "prompt": 6939,
+          "completion": 344,
+          "latency_s": 5.43
+        }
+      ]
+    },
+    {
+      "scenario": "F2-out-of-scope",
+      "agent": "researcher",
+      "latency_s": 13.4,
+      "llm_iterations": 3,
+      "tool_calls": 4,
+      "prompt_tokens": 8241,
+      "completion_tokens": 400,
+      "total_tokens": 8641,
+      "cost_usd": 0.00122,
+      "iterations": [
+        {
+          "prompt": 1726,
+          "completion": 77,
+          "latency_s": 2.78
+        },
+        {
+          "prompt": 1896,
+          "completion": 71,
+          "latency_s": 2.22
+        },
+        {
+          "prompt": 4619,
+          "completion": 252,
+          "latency_s": 4.02
+        }
+      ]
+    },
+    {
+      "scenario": "Q4-php-laravel",
+      "agent": "researcher",
+      "latency_s": 15.2,
+      "llm_iterations": 2,
+      "tool_calls": 4,
+      "prompt_tokens": 8049,
+      "completion_tokens": 435,
+      "total_tokens": 8484,
+      "cost_usd": 0.00134,
+      "iterations": [
+        {
+          "prompt": 1780,
+          "completion": 147,
+          "latency_s": 7.69
+        },
+        {
+          "prompt": 6269,
+          "completion": 288,
+          "latency_s": 6.22
+        }
+      ]
+    },
+    {
+      "scenario": "F1-tools-down-fix",
+      "agent": "researcher",
+      "latency_s": 5.9,
+      "llm_iterations": 4,
+      "tool_calls": 6,
+      "prompt_tokens": 8094,
+      "completion_tokens": 289,
+      "total_tokens": 8383,
+      "cost_usd": 0.00083,
+      "iterations": [
+        {
+          "prompt": 1822,
+          "completion": 73,
+          "latency_s": 1.6
+        },
+        {
+          "prompt": 1957,
+          "completion": 73,
+          "latency_s": 1.43
+        },
+        {
+          "prompt": 2092,
+          "completion": 69,
+          "latency_s": 1.44
+        },
+        {
+          "prompt": 2223,
+          "completion": 74,
+          "latency_s": 1.35
+        }
+      ]
+    },
+    {
+      "scenario": "F1-tools-down-fix",
+      "agent": "researcher",
+      "latency_s": 4.1,
+      "llm_iterations": 3,
+      "tool_calls": 4,
+      "prompt_tokens": 6165,
+      "completion_tokens": 220,
+      "total_tokens": 6385,
+      "cost_usd": 0.00065,
+      "iterations": [
+        {
+          "prompt": 1920,
+          "completion": 73,
+          "latency_s": 1.28
+        },
+        {
+          "prompt": 2055,
+          "completion": 73,
+          "latency_s": 1.33
+        },
+        {
+          "prompt": 2190,
+          "completion": 74,
+          "latency_s": 1.52
+        }
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "scenario": "F1-tools-down-fix",
+      "kind": "TOOL",
+      "name": "query_osv",
+      "node": "researcher",
+      "message": "ConnectionError('OSV.dev desconectado (fault injection)')"
+    },
+    {
+      "scenario": "F1-tools-down-fix",
+      "kind": "TOOL",
+      "name": "query_osv",
+      "node": "researcher",
+      "message": "ConnectionError('OSV.dev desconectado (fault injection)')"
+    },
+    {
+      "scenario": "F1-tools-down-fix",
+      "kind": "TOOL",
+      "name": "query_osv",
+      "node": "researcher",
+      "message": "ConnectionError('OSV.dev desconectado (fault injection)')"
+    },
+    {
+      "scenario": "F1-tools-down-fix",
+      "kind": "TOOL",
+      "name": "query_osv",
+      "node": "researcher",
+      "message": "ConnectionError('OSV.dev desconectado (fault injection)')"
+    },
+    {
+      "scenario": "F1-tools-down-fix",
+      "kind": "TOOL",
+      "name": "query_osv",
+      "node": "researcher",
+      "message": "ConnectionError('OSV.dev desconectado (fault injection)')"
+    },
+    {
+      "scenario": "F1-tools-down-fix",
+      "kind": "TOOL",
+      "name": "query_osv",
+      "node": "researcher",
+      "message": "ConnectionError('OSV.dev desconectado (fault injection)')"
+    },
+    {
+      "scenario": "F1-tools-down-fix",
+      "kind": "TOOL",
+      "name": "query_osv",
+      "node": "researcher",
+      "message": "ConnectionError('OSV.dev desconectado (fault injection)')"
+    },
+    {
+      "scenario": "F1-tools-down-fix",
+      "kind": "TOOL",
+      "name": "query_osv",
+      "node": "researcher",
+      "message": "ConnectionError('OSV.dev desconectado (fault injection)')"
+    },
+    {
+      "scenario": "F1-tools-down-fix",
+      "kind": "TOOL",
+      "name": "query_osv",
+      "node": "researcher",
+      "message": "ConnectionError('OSV.dev desconectado (fault injection)')"
+    },
+    {
+      "scenario": "F1-tools-down-fix",
+      "kind": "TOOL",
+      "name": "query_osv",
+      "node": "researcher",
+      "message": "ConnectionError('OSV.dev desconectado (fault injection)')"
+    },
+    {
+      "scenario": "F1-tools-down-fix",
+      "kind": "TOOL",
+      "name": "query_osv",
+      "node": "researcher",
+      "message": "ConnectionError('OSV.dev desconectado (fault injection)')"
+    },
+    {
+      "scenario": "F1-tools-down-fix",
+      "kind": "TOOL",
+      "name": "query_osv",
+      "node": "researcher",
+      "message": "ConnectionError('OSV.dev desconectado (fault injection)')"
+    },
+    {
+      "scenario": "F1-tools-down",
+      "kind": "TOOL",
+      "name": "query_osv",
+      "node": "researcher",
+      "message": "ConnectionError('OSV.dev desconectado (fault injection)')"
+    },
+    {
+      "scenario": "F1-tools-down",
+      "kind": "CHAIN",
+      "name": "tools",
+      "node": "researcher",
+      "message": "ConnectionError('OSV.dev desconectado (fault injection)')"
+    },
+    {
+      "scenario": "F1-tools-down",
+      "kind": "TOOL",
+      "name": "query_osv",
+      "node": "researcher",
+      "message": "ConnectionError('OSV.dev desconectado (fault injection)')"
+    },
+    {
+      "scenario": "F1-tools-down",
+      "kind": "CHAIN",
+      "name": "tools",
+      "node": "researcher",
+      "message": "ConnectionError('OSV.dev desconectado (fault injection)')"
+    },
+    {
+      "scenario": "F1-tools-down",
+      "kind": "CHAIN",
+      "name": "researcher",
+      "node": "researcher",
+      "message": "ConnectionError('OSV.dev desconectado (fault injection)')"
+    },
+    {
+      "scenario": "F1-tools-down",
+      "kind": "CHAIN",
+      "name": "researcher",
+      "node": "researcher",
+      "message": "ConnectionError('OSV.dev desconectado (fault injection)')"
+    },
+    {
+      "scenario": "F1-tools-down",
+      "kind": "CHAIN",
+      "name": "F1-tools-down",
+      "node": NaN,
+      "message": "ConnectionError('OSV.dev desconectado (fault injection)')"
+    }
+  ]
+}

@@ -21,6 +21,27 @@ MAX_VULNS_PER_PACKAGE = 15  # recorte para no inflar el contexto del LLM
 Ecosystem = Literal["Maven", "npm", "PyPI", "Packagist"]
 
 
+def validate_package_name(package: str, ecosystem: str) -> str | None:
+    """Detecta nombres con el formato equivocado para el ecosistema.
+
+    Hallazgo de observabilidad (Phoenix): el LLM consultaba 'psf/requests' o
+    'pallets/flask' (nombres de repos de GitHub) en PyPI; OSV respondía 0 vulns
+    y el sistema concluía erróneamente que el proyecto estaba limpio.
+    Devuelve un mensaje de error corregible, o None si el nombre es válido.
+    """
+    if ecosystem == "PyPI" and "/" in package:
+        return (f"'{package}' no es un nombre de PyPI (parece un repo de GitHub). "
+                f"Usá el nombre de pypi.org, ej. '{package.split('/')[-1].lower()}'.")
+    if ecosystem == "npm" and "/" in package and not package.startswith("@"):
+        return (f"'{package}' no es un nombre de npm. Solo los paquetes con scope llevan '/', "
+                f"y empiezan con '@' (ej. '@angular/core'). Probá '{package.split('/')[-1]}'.")
+    if ecosystem == "Maven" and ":" not in package:
+        return f"'{package}' no es un nombre Maven: usá 'groupId:artifactId', ej. 'org.apache.logging.log4j:log4j-core'."
+    if ecosystem == "Packagist" and "/" not in package:
+        return f"'{package}' no es un nombre de Packagist: usá 'vendor/paquete', ej. 'guzzlehttp/guzzle'."
+    return None
+
+
 def _fixed_versions(vuln: dict, package: str) -> list[str]:
     """Extrae las versiones que corrigen la vuln para ESTE paquete."""
     fixed = []
@@ -71,6 +92,9 @@ def query_osv(package: str, version: str, ecosystem: Ecosystem) -> str:
         JSON con la lista de vulnerabilidades (id, CVE, vector CVSS,
         severidad, CWE y versiones que lo corrigen).
     """
+    if name_error := validate_package_name(package, ecosystem):
+        return json.dumps({"error": f"Nombre inválido: {name_error} Reintentá con el nombre correcto."})
+
     payload = {"package": {"name": package, "ecosystem": ecosystem}, "version": version}
     try:
         resp = httpx.post(OSV_URL, json=payload, timeout=20)
@@ -88,6 +112,9 @@ def query_osv(package: str, version: str, ecosystem: Ecosystem) -> str:
         "total_found": len(vulns),
         "vulnerabilities": [_simplify(v, package) for v in vulns[:MAX_VULNS_PER_PACKAGE]],
     }
+    if not vulns:
+        result["note"] = ("0 vulnerabilidades conocidas en OSV para este nombre y versión. "
+                          "Sin hallazgos no significa seguro: verificá que el nombre sea el del registro oficial.")
     if len(vulns) > MAX_VULNS_PER_PACKAGE:
         result["note"] = f"Se muestran {MAX_VULNS_PER_PACKAGE} de {len(vulns)}."
     return json.dumps(result, ensure_ascii=False)

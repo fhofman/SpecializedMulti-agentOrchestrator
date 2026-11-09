@@ -190,13 +190,23 @@ def apply_guardrails(decision: SupervisorDecision, state: AgentState) -> tuple[s
             nxt = "analyst" if not state.get("analysis_report") else "FINISH"
             notes.append(f"G6: se pidió refinar al investigador sin fallo concreto -> {nxt}")
 
+    # G7: los datos existen pero no hay NINGUNA vulnerabilidad (o el pedido está fuera
+    # de alcance): no hay nada que rankear, el analista solo gastaría tokens.
+    # (Hallazgo de Phoenix: en Q3/F2 el analista corrió 3 veces sobre datos vacíos.)
+    data = state.get("vulnerability_data", [])
+    no_vulns = bool(data) and all(not p["vulnerabilities"] for p in data)
+    out_of_scope = "FUERA DE ALCANCE" in state.get("research_findings", "").upper()
+    if (nxt == "analyst" and no_vulns) or (out_of_scope and nxt != "FINISH"):
+        notes.append(f"G7: {'fuera de alcance' if out_of_scope else 'sin vulnerabilidades que analizar'}, {nxt} -> FINISH")
+        nxt = "FINISH"
+
     # G1: no se puede analizar sin datos.
     if nxt == "analyst" and not state.get("vulnerability_data") and can_run("researcher"):
         nxt, instruction = "researcher", "Consultá OSV para todos los paquetes de la consulta."
         notes.append("G1: se pidió analista sin datos -> researcher")
 
     # G2: no se puede terminar sin análisis (si todavía hay presupuesto).
-    if nxt == "FINISH" and not state.get("analysis_report"):
+    if nxt == "FINISH" and not state.get("analysis_report") and not (no_vulns or out_of_scope):
         if state.get("vulnerability_data") and can_run("analyst"):
             nxt, instruction = "analyst", "Priorizá los paquetes por riesgo y armá el plan de remediación."
             notes.append("G2: FINISH sin análisis -> analyst")
